@@ -1,27 +1,10 @@
 'use strict';
 /* eslint-env node */
 
-const comicsList = [
-    {
-        title: 'The Amazing Spider-Man',
-        issue: 252,
-        author: 'Steve Ditko',
-        description: 'Spidey comes back from Secret Wars with his new black suit!'
-    },
-    {
-        title: 'Invincible Iron Man',
-        issue: 55,
-        author: 'Stan Lee',
-        description: 'First appearance of Thanos'
-    },
-    {
-        title: 'Groo The Wanderer',
-        issue: 1,
-        author: 'Sergio Arrigones',
-        description: 'First issue'
-    },
-];
+const env = process.env.NODE_ENV || 'development';
+const config = require('../knexfile')[env];
+const knex = require('knex')(config);
 
 module.exports = {
-    list: () => new Promise(resolve => resolve(comicsList))
+    list: () => knex('comics')
 };
